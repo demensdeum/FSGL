@@ -236,7 +236,7 @@ void FSGLCore::render() {
     SDL_GL_SwapWindow(window);
 }
 
-void FSGLCore::addRenderID(int id) {
+void FSGLCore::addRenderID(string id) {
     
     renderIDs.insert(id);
     
@@ -252,7 +252,7 @@ void FSGLCore::stop() {
 
 }
 
-shared_ptr<FSGLObject> FSGLCore::getObjectWithID(int id) {
+shared_ptr<FSGLObject> FSGLCore::getObjectWithID(string id) {
     
     for (size_t i = 0; i < objects.size(); i++) {
         

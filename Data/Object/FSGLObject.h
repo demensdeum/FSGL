@@ -33,7 +33,7 @@ public:
     FSGLObject() : FSGLObject(shared_ptr<FSGLModel>()) {};
     virtual ~FSGLObject();
     
-    int id;
+    string id;
     
     shared_ptr<FSGLModel> model;    
     

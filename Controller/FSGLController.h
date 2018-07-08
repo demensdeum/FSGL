@@ -36,7 +36,7 @@ public:
     
     void addObject(shared_ptr<FSGLObject> object);
 
-    shared_ptr<FSGLObject> getObjectWithID(int id);
+    shared_ptr<FSGLObject> getObjectWithID(string id);
     
     void removeAllObjects();
     
@@ -44,7 +44,7 @@ public:
     
     void render();
     
-    void addRenderID(int id);
+    void addRenderID(string id);
     void cleanRenderIDs();    
     
     void stop();

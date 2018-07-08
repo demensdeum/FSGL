@@ -49,7 +49,7 @@ void FSGLController::render() {
     
 }
 
-void FSGLController::addRenderID(int id) {
+void FSGLController::addRenderID(string id) {
     
     core->addRenderID(id);
     
@@ -73,7 +73,7 @@ void FSGLController::removeAllObjects() {
     
 }
 
-shared_ptr<FSGLObject> FSGLController::getObjectWithID(int id) {
+shared_ptr<FSGLObject> FSGLController::getObjectWithID(string id) {
     
     return core->getObjectWithID(id);
     
