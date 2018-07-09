@@ -46,7 +46,7 @@ public:
     FSGLCore();
     virtual ~FSGLCore();
     
-    void initialize();
+    SDL_Window* initialize();
     
     void addObject(shared_ptr<FSGLObject> object);
     

@@ -133,7 +133,7 @@ void FSGLCore::removeAllObjects() {
    
 }
 
-void FSGLCore::initialize() {
+SDL_Window* FSGLCore::initialize() {
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,16);
@@ -196,6 +196,8 @@ void FSGLCore::initialize() {
     projectionMatrixUniform = glGetUniformLocation(shader_program, "projectionMatrix");
     glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));    
  
+	return window;
+
 }
 
 void FSGLCore::addObject(shared_ptr<FSGLObject> object) {

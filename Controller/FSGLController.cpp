@@ -25,9 +25,9 @@ FSGLController::FSGLController() {
 FSGLController::FSGLController(const FSGLController& ) {
 }
 
-void FSGLController::initialize() {
+SDL_Window* FSGLController::initialize() {
     
-    core->initialize();
+    return core->initialize();
 }
 
 void FSGLController::addObject(shared_ptr<FSGLObject> object) {

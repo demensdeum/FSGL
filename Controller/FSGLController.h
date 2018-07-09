@@ -32,7 +32,7 @@ public:
     FSGLController(const FSGLController& orig);
     virtual ~FSGLController();
     
-    void initialize();
+    SDL_Window* initialize();
     
     void addObject(shared_ptr<FSGLObject> object);
 
