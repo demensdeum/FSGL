@@ -22,11 +22,12 @@
 #include <assimp/scene.h>
 #include "../../Vertex/FSGLVertex.h"
 
-#include <FlameSteelCore/FSCData.h>
+#include <FlameSteelCore/Data.h>
 
 #include <memory>
 
 using namespace std;
+using namespace FlameSteelCore;
 
 class FSGLModelLoaderAssimp: public FSGLModelLoader {
 public:
@@ -34,7 +35,7 @@ public:
     virtual ~FSGLModelLoaderAssimp();
     
     static shared_ptr<FSGLModel> loadModel(shared_ptr<string> modelPath);   
-	static shared_ptr<FSGLModel> loadModelFromData(shared_ptr<FSCData> data);
+	static shared_ptr<FSGLModel> loadModelFromData(shared_ptr<Data> data);
     
 private:
     
