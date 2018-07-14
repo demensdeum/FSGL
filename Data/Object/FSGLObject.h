@@ -41,6 +41,8 @@ public:
     shared_ptr<FSGLVector> rotationVector;
     shared_ptr<FSGLVector> positionVector;   
   
+	float brightness = 0.3;
+
     virtual glm::mat4 matrix();
     
     virtual shared_ptr<string> serializeIntoString();

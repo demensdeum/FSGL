@@ -53,10 +53,19 @@ static const GLchar* vertexShaderSource =
 
 static const GLchar* fragmentShaderSource =
         "#version 100\n"
+	  "precision mediump int;\n"
+	  "precision mediump float;\n"
+	  "precision lowp sampler2D;\n"
+	  "precision lowp samplerCube;\n"
         "varying lowp vec2 uvOut;\n"
         "uniform sampler2D texture;\n"
+	  "uniform float brightness;\n"
         "void main() {\n"
-        "   gl_FragColor = texture2D(texture, uvOut);\n"
+	 "vec4 color = texture2D(texture, uvOut);\n"
+	 "color.r = brightness * color.r;\n"
+	 "color.g = brightness * color.g;\n"
+	 "color.b = brightness * color.b;\n"
+        "   gl_FragColor = color;"
         "}\n";
 
 GLint FSGLCore::common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source) {
@@ -305,9 +314,8 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
 
 	if (material == NULL) {
 
-            cout << "FSGLCore: cannot load material" << endl;
+            throw logic_error("FSGLCore: cannot load material");
 
-            exit(1);
 	}
 
         auto surface = material->surface;
@@ -315,8 +323,9 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         if (surface == NULL) {
 
             cout << "FSGLCore: cannot load texture " << material->texturePath->c_str() << endl;
+	
+		throw logic_error("FSGLCore: cannot load texture");
 
-            exit(1);
         }
 
         auto palleteMode = GL_RGB;
@@ -332,6 +341,9 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
 
         GLint textureSlot = glGetUniformLocation(shader_program, "texture");
         glUniform1i(textureSlot, 0);
+
+        GLint brightnessSlot = glGetUniformLocation(shader_program, "brightness");
+        glUniform1f(brightnessSlot, object->brightness);
 
         GLint uvSlot = glGetAttribLocation(shader_program, "uvIn");
         glVertexAttribPointer(uvSlot, 2, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 3));
