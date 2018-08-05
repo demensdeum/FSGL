@@ -62,6 +62,9 @@ static const GLchar* fragmentShaderSource =
 	  "uniform float brightness;\n"
         "void main() {\n"
 	 "vec4 color = texture2D(texture, uvOut);\n"
+	 "if (color.r == 0.0 && color.g == 0.0 && color.b == 1.0) {\n"
+	 "	discard;"
+	 "}\n"
 	 "color.r = brightness * color.r;\n"
 	 "color.g = brightness * color.g;\n"
 	 "color.b = brightness * color.b;\n"
@@ -82,7 +85,8 @@ GLint FSGLCore::common_get_shader_program(const char *vertex_shader_source, cons
     glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(vertex_shader, 512, NULL, infoLog);
-        printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", infoLog);
+        cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << endl << infoLog << endl;
+	throw logic_error("Can't compile shader program");
     }
 
     fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -91,7 +95,8 @@ GLint FSGLCore::common_get_shader_program(const char *vertex_shader_source, cons
     glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(fragment_shader, 512, NULL, infoLog);
-        printf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s\n", infoLog);
+        cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << endl << infoLog << endl;
+	throw logic_error("Can't compile shader program");
     }
 
     shader_program = glCreateProgram();
@@ -102,7 +107,8 @@ GLint FSGLCore::common_get_shader_program(const char *vertex_shader_source, cons
     glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(shader_program, 512, NULL, infoLog);
-        printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
+        cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED" << endl << infoLog << endl;
+	throw logic_error("Can't link shader program");
     }
 
     glDeleteShader(vertex_shader);
