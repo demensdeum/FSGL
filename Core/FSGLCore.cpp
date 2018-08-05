@@ -163,12 +163,14 @@ SDL_Window* FSGLCore::initialize() {
 	printf("Could not create window: %s\n", SDL_GetError());
 	exit(1);
         
-    }
-
+    } 
+    
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );        
+    
     context = SDL_GL_CreateContext(window);
 
-#if MSVS
-    
     if (context == NULL) {
      
         printf("SDL_Init failed: %s\n", SDL_GetError());
@@ -184,8 +186,6 @@ SDL_Window* FSGLCore::initialize() {
     }
     
     SDL_GL_MakeCurrent(window, context);
-
-#endif
     
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -299,6 +299,9 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
 
         GLint vertexSlot = glGetAttribLocation(shader_program, "vertex");
 
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);        
+        
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, verticesBufferSize, vertices, GL_STATIC_DRAW);

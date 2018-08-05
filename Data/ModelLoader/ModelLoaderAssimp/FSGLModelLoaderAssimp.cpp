@@ -172,7 +172,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
                 if (surface == nullptr) {
 
                     cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
-
+			throw("FSGLModelLoaderAssimp: cannot load texture");
                 }
 
                 auto surfaceLength = surface->w * surface->h * 3;

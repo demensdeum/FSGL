@@ -20,15 +20,7 @@
 
 #include "../Data/Model/FSGLModel.h"
 
-#if MSVC
-
 #include <GL/glew.h>
-
-#else
-
-#include <GLES3/gl3.h>
-
-#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -73,7 +65,7 @@ private:
     SDL_GLContext context;
     GLuint shader_program;
     
-    GLuint vbo, indexBuffer;
+    GLuint vao, vbo, indexBuffer;
    
     SDL_Window *window;
     
