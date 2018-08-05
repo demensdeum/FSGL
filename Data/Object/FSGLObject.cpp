@@ -44,7 +44,7 @@ FSGLObject::FSGLObject(shared_ptr<FSGLModel> model) {
 
 glm::mat4 FSGLObject::matrix() {
 
-    glm::mat4 matrix;
+    auto matrix = glm::mat4(1.0);
 
     glm::scale(matrix, glm::vec3(scaleVector->x, scaleVector->y, scaleVector->z));
 
