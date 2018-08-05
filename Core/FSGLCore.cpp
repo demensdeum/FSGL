@@ -142,6 +142,14 @@ void FSGLCore::removeAllObjects() {
    
 }
 
+static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
+{ 
+	if (type != GL_DEBUG_TYPE_OTHER)
+	{
+		cout << "OpenGL: "<< message << endl;
+	}
+}
+
 SDL_Window* FSGLCore::initialize() {
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -165,7 +173,7 @@ SDL_Window* FSGLCore::initialize() {
         
     } 
     
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );        
     
@@ -189,6 +197,23 @@ SDL_Window* FSGLCore::initialize() {
     
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_DEBUG_OUTPUT);
+	if (glGetError() != GL_NO_ERROR) {
+		throw runtime_error("Can't enable debug output");
+	}
+
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	if (glGetError() != GL_NO_ERROR) {
+		throw runtime_error("Can't enable debug output synchronous");
+	}
+
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, GL_TRUE);
+        if (glGetError() != GL_NO_ERROR) {
+		throw runtime_error("Can't enable debug message control");
+	}
+
+	glDebugMessageCallback(FSGL_openGLDebugCallback, NULL);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
