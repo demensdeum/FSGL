@@ -54,13 +54,12 @@ void FSGLVertex::applyTransformationMatrixWithWeight(shared_ptr<FSGLMatrix> tran
 	cout << "FSGLVertex::applyTransformationMatrixWithWeight" << " weight: " << weight << ";" << endl;
 
 	if (transformationMatrix.get() == nullptr)
-{
-	cout << "FSGLVertex::applyTransformationMatrixWithWeight - transformationMatrix = nullptr" << endl;
+	{
+		cout << "FSGLVertex::applyTransformationMatrixWithWeight - transformationMatrix = nullptr" << endl;
 
-	exit(3);
-}
+		exit(3);
+	}
 
-	weight = weight;
 	auto weightedMatrix = transformationMatrix->matrix * weight;
 
 	this->transformMatrix->matrix *= weightedMatrix;

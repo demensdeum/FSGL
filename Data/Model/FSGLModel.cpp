@@ -151,6 +151,7 @@ std::istringstream f(serializedData->c_str());
                 if (surface == nullptr) {
 
                     cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
+				throw runtime_error("FSGLModelLoaderAssimp: cannot load texture");
 
                 }
 
