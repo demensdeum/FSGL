@@ -416,7 +416,7 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
 
         glDeleteTextures(1, &textureBinding);
 
-        glDeleteBuffers(1, &vao);
+	   glDeleteVertexArrays(1, &vao);
         glDeleteBuffers(1, &vbo);
         glDeleteBuffers(1, &indexBuffer);
 
