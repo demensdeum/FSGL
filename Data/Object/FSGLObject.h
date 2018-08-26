@@ -29,38 +29,39 @@ using namespace std;
 
 class FSGLObject: public FSGLSerializable {
 public:
-    FSGLObject(shared_ptr<FSGLModel> model);
-    FSGLObject() : FSGLObject(shared_ptr<FSGLModel>()) {};
-    virtual ~FSGLObject();
+	FSGLObject(shared_ptr<FSGLModel> model);
+	FSGLObject() : FSGLObject(shared_ptr<FSGLModel>()) {};
+	virtual ~FSGLObject();
     
-    string id;
+	string id;
     
-    shared_ptr<FSGLModel> model;    
+	shared_ptr<FSGLModel> model;    
     
-    shared_ptr<FSGLVector> scaleVector;
-    shared_ptr<FSGLVector> rotationVector;
-    shared_ptr<FSGLVector> positionVector;   
+ 	shared_ptr<FSGLVector> scaleVector;
+	shared_ptr<FSGLVector> rotationVector;
+	shared_ptr<FSGLVector> positionVector;   
   
-	float brightness = 0.3;
+	float brightness = 1.0;
+	bool flag2D = false;
 
-    virtual glm::mat4 matrix();
+	virtual glm::mat4 matrix();
     
-    virtual shared_ptr<string> serializeIntoString();
-    virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData);
+	virtual shared_ptr<string> serializeIntoString();
+	virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData);
 
-    virtual shared_ptr<FSGLSerializable> deserializeFromFile(shared_ptr<string> path);
+	virtual shared_ptr<FSGLSerializable> deserializeFromFile(shared_ptr<string> path);
     
-    void updateAnimationTransformations();
+	void updateAnimationTransformations();
     
-    void applyAnimation(shared_ptr<string> animationName, double animationOffset);
+	void applyAnimation(shared_ptr<string> animationName, double animationOffset);
     
-    void postRenderUpdate();
+	void postRenderUpdate();
     
 private:
     
 	void resetTransformationMatrix();
 
-    void incrementAnimation();
+	void incrementAnimation();
     
 };
 

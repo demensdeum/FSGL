@@ -69,6 +69,7 @@ private:
    
     SDL_Window *window;
     
+    vector<shared_ptr<FSGLObject>> objects2D;
     vector<shared_ptr<FSGLObject>> objects;
     
     set<string> renderIDs;

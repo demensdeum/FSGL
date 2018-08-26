@@ -125,6 +125,18 @@ FSGLCore::FSGLCore() {
 
 void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 
+	if (object->flag2D) {
+	    for (size_t i = 0; i < objects2D.size(); i++) {
+	
+		if (object.get() == objects2D[i].get()) {
+
+			objects2D.erase(objects2D.begin() + i);
+
+			return;
+		}
+		}
+	}
+	else {
 	    for (size_t i = 0; i < objects.size(); i++) {
 	
 		if (object.get() == objects[i].get()) {
@@ -134,6 +146,7 @@ void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 			return;
 		}
 		}
+	}
 }
 
 void FSGLCore::removeAllObjects() {
@@ -145,6 +158,15 @@ void FSGLCore::removeAllObjects() {
         i--;
         
     }
+
+    for (size_t i = 0; i < objects2D.size(); i++) {
+        
+        objects2D.pop_back();
+        
+        i--;
+        
+    }
+
    
 }
 
@@ -183,6 +205,9 @@ SDL_Window* FSGLCore::initialize() {
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );        
     
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 2);
+
     context = SDL_GL_CreateContext(window);
 
     if (context == NULL) {
@@ -200,6 +225,8 @@ SDL_Window* FSGLCore::initialize() {
     }
     
     SDL_GL_MakeCurrent(window, context);
+
+	glEnable(GL_MULTISAMPLE);
     
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -241,9 +268,12 @@ SDL_Window* FSGLCore::initialize() {
 }
 
 void FSGLCore::addObject(shared_ptr<FSGLObject> object) {
-
-    objects.push_back(object);
-
+	if (object->flag2D) {
+		objects2D.push_back(object);
+	}
+	else {
+		objects.push_back(object);
+	}
 }
 
 void FSGLCore::render() {
@@ -275,6 +305,23 @@ void FSGLCore::render() {
 
     }
 
+	// 2D On Screen Rendering
+
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glClearDepthf(1.0f);
+
+    for (unsigned int i = 0; i < objects2D.size(); i++) {
+        auto object = objects2D[i];
+	if (object.get() == nullptr) {
+		cout << "FSGLCore cannot render empty object" << endl;
+		exit(1);
+	}
+        auto objectID = object->id;        
+        if (renderIDs.size() < 1 || renderIDs.find(objectID) != renderIDs.end()) {        
+            renderObject(object);            
+        }
+    }
+
     SDL_GL_SwapWindow(window);
 }
 
@@ -297,16 +344,18 @@ void FSGLCore::stop() {
 shared_ptr<FSGLObject> FSGLCore::getObjectWithID(string id) {
     
     for (size_t i = 0; i < objects.size(); i++) {
-        
         auto object = objects[i];
-        
         if (object->id == id) {
-            
             return object;
-            
         }
-        
     }
+
+	for (size_t i = 0; i < objects2D.size(); i++) {
+		auto object = objects2D[i];
+		if (object->id == id) {
+			return object;
+		}
+	}
     
     return shared_ptr<FSGLObject>();
 }
@@ -367,8 +416,10 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         GLuint textureBinding;
         glGenTextures(1, &textureBinding);
         glBindTexture(GL_TEXTURE_2D, textureBinding);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
         glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
 	  glGenerateMipmap(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
