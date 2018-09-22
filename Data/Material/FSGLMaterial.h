@@ -29,7 +29,7 @@ public:
     
     shared_ptr<string> texturePath;
     
-    SDL_Surface *surface;
+    SDL_Surface *surface = nullptr;
     
 private:
 
