@@ -16,8 +16,13 @@
 FSGLMaterial::FSGLMaterial(shared_ptr<string> texturePath) {
     
     this->texturePath = texturePath;
-    
-    surface = NULL;
+
+}
+
+FSGLMaterial::FSGLMaterial(SDL_Surface *surface) {
+
+	this->surface = surface;
+
 }
 
 FSGLMaterial::FSGLMaterial(const FSGLMaterial& ) {

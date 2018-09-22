@@ -24,6 +24,7 @@ using namespace std;
 class FSGLMaterial {
 public:
     FSGLMaterial(shared_ptr<string> texturePath);
+	FSGLMaterial(SDL_Surface *surface);
     FSGLMaterial(const FSGLMaterial& orig);
     virtual ~FSGLMaterial();
     
