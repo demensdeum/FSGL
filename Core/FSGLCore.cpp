@@ -201,8 +201,16 @@ SDL_Window* FSGLCore::initialize() {
         
     } 
     
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2);
+#ifdef __APPLE__    
+    auto majorVersion = 3;
+    auto minorVersion = 2;
+#else
+    auto majorVersion = 4;
+    auto minorVersion = 2;
+#endif
+    
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, minorVersion);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );        
     
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -231,6 +239,7 @@ SDL_Window* FSGLCore::initialize() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
+#ifndef __APPLE__
 	glEnable(GL_DEBUG_OUTPUT);
 	if (glGetError() != GL_NO_ERROR) {
 		throw runtime_error("Can't enable debug output");
@@ -247,6 +256,7 @@ SDL_Window* FSGLCore::initialize() {
 	}
 
 	glDebugMessageCallback(FSGL_openGLDebugCallback, NULL);
+#endif
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
