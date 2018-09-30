@@ -55,9 +55,9 @@ static const GLchar* fragmentShaderSource =
         "#version 100\n"
 	  "precision mediump int;\n"
 	  "precision mediump float;\n"
-	  "precision lowp sampler2D;\n"
-	  "precision lowp samplerCube;\n"
-        "varying lowp vec2 uvOut;\n"
+	  "precision mediump sampler2D;\n"
+	  "precision mediump samplerCube;\n"
+        "varying mediump vec2 uvOut;\n"
         "uniform sampler2D texture;\n"
 	  "uniform float brightness;\n"
         "void main() {\n"
@@ -186,7 +186,7 @@ SDL_Window* FSGLCore::initialize() {
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow(
-            "Death Mask - Prototype",
+            "Death Mask - 0.1 Alpha",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             FSGLCoreScreenWidth,
