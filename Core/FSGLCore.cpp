@@ -1,4 +1,4 @@
-/*
+	/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -23,6 +23,10 @@
 #include <fstream>
 #include <iostream>
 #include <set>
+
+#ifdef __APPLE__
+#define FSGL_LEGACY_OPENGL 1
+#endif
 
 using namespace std;
 
@@ -170,6 +174,8 @@ void FSGLCore::removeAllObjects() {
    
 }
 
+#ifndef FSGL_LEGACY_OPENGL
+
 static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
 { 
 	if (type != GL_DEBUG_TYPE_OTHER)
@@ -177,6 +183,8 @@ static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLe
 		cout << "OpenGL: "<< message << endl;
 	}
 }
+
+#endif
 
 SDL_Window* FSGLCore::initialize() {
 
@@ -201,12 +209,12 @@ SDL_Window* FSGLCore::initialize() {
         
     } 
     
-#ifdef __APPLE__    
-    auto majorVersion = 3;
-    auto minorVersion = 2;
-#else
+#ifndef FSGL_LEGACY_OPENGL
     auto majorVersion = 4;
     auto minorVersion = 2;
+#else
+    auto majorVersion = 2;
+    auto minorVersion = 0;
 #endif
     
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
@@ -239,7 +247,7 @@ SDL_Window* FSGLCore::initialize() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-#ifndef __APPLE__
+#ifndef FSGL_LEGACY_OPENGL
 	glEnable(GL_DEBUG_OUTPUT);
 	if (glGetError() != GL_NO_ERROR) {
 		throw runtime_error("Can't enable debug output");
