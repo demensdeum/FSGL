@@ -14,7 +14,6 @@
 #include <iostream>
 
 #include "FSGLResourceLoader.h"
-#include "../ModelLoader/ModelLoaderAssimp/FSGLModelLoaderAssimp.h"
 #include "../ModelLoader/ModelLoaderFSGL/FSGLModelLoaderFSGL.h"
 #include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
@@ -40,26 +39,11 @@ shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> res
     
     shared_ptr<string> extension = FSGLUtils::filePathExtension(resourcePath);
     
-    if (extension->compare("obj") == 0) {
-        
-        return FSGLModelLoaderAssimp::loadModel(resourcePath);
-        
-    }
-    else if (extension->compare("gltf") == 0) {
-        
-        return FSGLModelLoaderAssimp::loadModel(resourcePath);
-        
-    }
-    else if (extension->compare("fbx") == 0) {
-        
-        return FSGLModelLoaderAssimp::loadModel(resourcePath);
-        
-    }
-	else if (extension->compare("fsglmodel") == 0) {
+    if (extension->compare("fsglmodel") == 0) {
 
-		return FSGLModelLoaderFSGL::loadModel(resourcePath);
+	return FSGLModelLoaderFSGL::loadModel(resourcePath);
 
-	}
+    }
     else {
         
         cout << "FSGLResourceLoader: Could not load file: " << resourcePath->c_str() << endl;

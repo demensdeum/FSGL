@@ -209,6 +209,7 @@ SDL_Window* FSGLCore::initialize() {
         
     } 
     
+#ifndef __EMSCRIPTEN__
 #ifndef FSGL_LEGACY_OPENGL
     auto majorVersion = 4;
     auto minorVersion = 2;
@@ -216,10 +217,12 @@ SDL_Window* FSGLCore::initialize() {
     auto majorVersion = 2;
     auto minorVersion = 0;
 #endif
+
     
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, minorVersion);
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );        
+#endif
     
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 2);
