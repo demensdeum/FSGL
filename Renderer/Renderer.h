@@ -5,6 +5,7 @@
 
 using namespace std;
 class FSGLObject;
+class FSGLCamera;
 
 struct SDL_Window;
 
@@ -23,6 +24,8 @@ public:
 	virtual void render() = 0;
 
 	virtual void stop() = 0;
+
+ 	shared_ptr<FSGLCamera> camera;
 };
 };
 

@@ -25,7 +25,7 @@ class FSGLCamera;
 using namespace std;
 
 namespace FSGL {
-	class OGLRenderer;
+	class Renderer;
 };
 
 using namespace FSGL;
@@ -51,7 +51,7 @@ public:
 
 private:
 	map<string, shared_ptr<FSGLObject>> idObjectMap;
-	shared_ptr<OGLRenderer> renderer;
+	shared_ptr<Renderer> renderer;
 
 };
 

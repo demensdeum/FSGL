@@ -5,6 +5,7 @@
 FSGLCore::FSGLCore() {
 
 	renderer = make_shared<OGLRenderer>();
+	
 
 }
 

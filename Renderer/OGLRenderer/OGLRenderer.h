@@ -26,8 +26,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <FSGL/Data/Object/FSGLObject.h>
-#include <FSGL/Data/Camera/FSGLCamera.h>
-
 #include <FSGL/Renderer/Renderer.h>
 
 #include <set>
@@ -40,7 +38,7 @@ namespace FSGL {
 class OGLRenderer: public Renderer {
 public:    
 
-	OGLRenderer() : Renderer() { camera = make_shared<FSGLCamera>(); };
+	OGLRenderer() : Renderer() { };
 	virtual ~OGLRenderer();
 
     SDL_Window* initialize();
@@ -53,8 +51,6 @@ public:
     
     void render();
     void stop();
-    
-    shared_ptr<FSGLCamera> camera;
     
 private:
 

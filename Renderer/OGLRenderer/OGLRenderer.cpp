@@ -14,6 +14,7 @@
 #include "OGLRenderer.h"
 
 #include <FSGL/Data/Model/FSGLModel.h>
+#include <FSGL/Data/Camera/FSGLCamera.h>
 
 #include <glm/gtc/type_ptr.hpp>
 
