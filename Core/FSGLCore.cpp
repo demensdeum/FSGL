@@ -1,12 +1,11 @@
 #include "FSGLCore.h"
 #include <FSGL/Data/Camera/FSGLCamera.h>
-#include <FSGL/Renderer/OGLRenderer/OGLRenderer.h>
+#include <FSGL/Renderer/OGLNewAgeRenderer/OGLNewAgeRenderer.h>
 
 FSGLCore::FSGLCore() {
 
-	renderer = make_shared<OGLRenderer>();
+	renderer = make_shared<OGLNewAgeRenderer>();
 	
-
 }
 
 FSGLCore::~FSGLCore() {
