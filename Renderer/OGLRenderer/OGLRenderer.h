@@ -11,8 +11,8 @@
  * Created on July 8, 2017, 10:10 AM
  */
 
-#ifndef FSEOGLCORE_H
-#define FSEOGLCORE_H
+#ifndef FSGLOGL_RENDERER_H_
+#define FSGLOGL_RENDERER_H_
 
 #include <SDL2/SDL.h>
 
