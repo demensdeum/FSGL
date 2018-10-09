@@ -11,26 +11,24 @@
  * Created on July 8, 2017, 10:10 AM
  */
 
-#ifndef FSEOGLCORE_H
-#define FSEOGLCORE_H
+#ifndef FSGLCORE_H
+#define FSGLCORE_H
 
-#include <SDL2/SDL.h>
-
+#include <string>
 #include <memory>
+#include <map>
 
-#include <FSGL/Data/Model/FSGLModel.h>
-
-#include <GL/glew.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <FSGL/Data/Object/FSGLObject.h>
-#include <FSGL/Data/Camera/FSGLCamera.h>
-
-#include <set>
+struct SDL_Window;
+class FSGLObject;
+class FSGLCamera;
 
 using namespace std;
+
+namespace FSGL {
+	class OGLRenderer;
+};
+
+using namespace FSGL;
 
 class FSGLCore {
 public:
@@ -49,26 +47,12 @@ public:
     void render();
     void stop();
     
-    shared_ptr<FSGLCamera> camera;
-    
+    shared_ptr<FSGLCamera> camera();
+
 private:
+	map<string, shared_ptr<FSGLObject>> idObjectMap;
+	shared_ptr<OGLRenderer> renderer;
 
-	void removeObjectAtIndex(shared_ptr<FSGLObject> object, int index);
-    void renderObject(shared_ptr<FSGLObject> object);
-    
-    GLint common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source);
-
-    SDL_GLContext context;
-    GLuint shader_program;
-    
-    GLuint vao, vbo, indexBuffer;
-   
-    SDL_Window *window;
-    
-    vector<shared_ptr<FSGLObject>> objects2D;
-    vector<shared_ptr<FSGLObject>> objects;
-    
-    set<string> renderIDs;
 };
 
 #endif /* FSEOGLCORE_H */

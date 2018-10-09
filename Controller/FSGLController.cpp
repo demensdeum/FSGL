@@ -69,36 +69,36 @@ shared_ptr<FSGLObject> FSGLController::getObjectWithID(string id) {
 
 void FSGLController::setCameraX(float x) {
     
-    core->camera->positionVector->x = x;
+    core->camera()->positionVector->x = x;
     
 }
 
 void FSGLController::setCameraY(float y) {
     
-    core->camera->positionVector->y = y;
+    core->camera()->positionVector->y = y;
 }
 
 void FSGLController::setCameraZ(float z) {
     
-    core->camera->positionVector->z = z;
+    core->camera()->positionVector->z = z;
     
 }
 
 void FSGLController::setCameraRotationX(float x) {
     
-    core->camera->rotationVector->x = x;
+    core->camera()->rotationVector->x = x;
     
 }
 
 void FSGLController::setCameraRotationY(float y) {
     
-    core->camera->rotationVector->y = y;
+    core->camera()->rotationVector->y = y;
     
 }
 
 void FSGLController::setCameraRotationZ(float z) {
     
-    core->camera->rotationVector->z = z;
+    core->camera()->rotationVector->z = z;
     
 }
 
