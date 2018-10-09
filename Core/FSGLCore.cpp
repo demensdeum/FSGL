@@ -134,7 +134,7 @@ void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 	
 		if (object.get() == objects2D[i].get()) {
 
-			objects2D.erase(objects2D.begin() + i);
+			removeObjectAtIndex(object, i);
 
 			return;
 		}
@@ -145,7 +145,7 @@ void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 	
 		if (object.get() == objects[i].get()) {
 
-			objects.erase(objects.begin() + i);
+			removeObjectAtIndex(object, i);
 
 			return;
 		}
@@ -153,11 +153,23 @@ void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 	}
 }
 
+void FSGLCore::removeObjectAtIndex(shared_ptr<FSGLObject> object, int index) {
+
+	if (object->flag2D) {
+		objects2D.erase(objects2D.begin() + index);
+	}
+	else {
+		objects.erase(objects.begin() + index);
+	}
+
+}
+
 void FSGLCore::removeAllObjects() {
     
     for (size_t i = 0; i < objects.size(); i++) {
         
-        objects.pop_back();
+	auto object = objects[i];
+        removeObject(object);
         
         i--;
         
@@ -165,7 +177,8 @@ void FSGLCore::removeAllObjects() {
 
     for (size_t i = 0; i < objects2D.size(); i++) {
         
-        objects2D.pop_back();
+	auto object = objects2D[i];
+        removeObject(object);
         
         i--;
         
@@ -344,18 +357,6 @@ void FSGLCore::render() {
     }
 
     SDL_GL_SwapWindow(window);
-}
-
-void FSGLCore::addRenderID(string id) {
-    
-    renderIDs.insert(id);
-    
-}
-
-void FSGLCore::cleanRenderIDs() {
-    
-    renderIDs.clear();
-    
 }
 
 void FSGLCore::stop() {

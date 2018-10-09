@@ -49,18 +49,6 @@ void FSGLController::render() {
     
 }
 
-void FSGLController::addRenderID(string id) {
-    
-    core->addRenderID(id);
-    
-}
-
-void FSGLController::cleanRenderIDs() {
-    
-    core->cleanRenderIDs();
-    
-}
-
 void FSGLController::stop() {
     
     core->stop();

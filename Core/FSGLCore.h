@@ -18,16 +18,15 @@
 
 #include <memory>
 
-#include "../Data/Model/FSGLModel.h"
+#include <FSGL/Data/Model/FSGLModel.h>
 
 #include <GL/glew.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../Data/Object/FSGLObject.h"
-
-#include "../Data/Camera/FSGLCamera.h"
+#include <FSGL/Data/Object/FSGLObject.h>
+#include <FSGL/Data/Camera/FSGLCamera.h>
 
 #include <set>
 
@@ -40,24 +39,21 @@ public:
     
     SDL_Window* initialize();
     
+	//Create, Remove
     void addObject(shared_ptr<FSGLObject> object);
-    
+    void removeObject(shared_ptr<FSGLObject> object);
+    void removeAllObjects();
+
     shared_ptr<FSGLObject> getObjectWithID(string id);
     
-    void removeObject(shared_ptr<FSGLObject> object);
-    
     void render();
-    
     void stop();
-    void removeAllObjects();
     
     shared_ptr<FSGLCamera> camera;
     
-    void addRenderID(string id);
-    void cleanRenderIDs();
-    
 private:
 
+	void removeObjectAtIndex(shared_ptr<FSGLObject> object, int index);
     void renderObject(shared_ptr<FSGLObject> object);
     
     GLint common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source);
