@@ -27,7 +27,9 @@
 
 #include <FSGL/Data/Object/FSGLObject.h>
 #include <FSGL/Renderer/Renderer.h>
+#include <FSGL/Renderer/OGLNewAgeRenderer/OGLNewAgeRendererElements.h>
 
+#include <map>
 #include <set>
 
 using namespace std;
@@ -54,7 +56,9 @@ public:
     
 private:
 
-	void removeObjectAtIndex(shared_ptr<FSGLObject> object, int index);
+    void cleanObjectCache(shared_ptr<FSGLObject> object);
+
+    void removeObjectAtIndex(shared_ptr<FSGLObject> object, int index);
     void renderObject(shared_ptr<FSGLObject> object);
     
     GLint common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source);
@@ -66,6 +70,10 @@ private:
     
     vector<shared_ptr<FSGLObject>> objects2D;
     vector<shared_ptr<FSGLObject>> objects;
+
+	map<shared_ptr<FSGLMesh>, shared_ptr<OGLNewAgeRendererElements>> mapMeshElementsMap;
+	map<shared_ptr<FSGLObject>, shared_ptr<OGLNewAgeRendererElements>> mapObjectElementsMap;
+
 };
 
 };

@@ -1,3 +1,6 @@
+#ifndef FSGLOGLNEWAGERENDERERELEMENTS_H_
+#define FSGLOGLNEWAGERENDERERELEMENTS_H_
+
 #include <GL/glew.h>
 #include <memory>
 
@@ -24,3 +27,5 @@ private:
 };
 
 };
+
+#endif

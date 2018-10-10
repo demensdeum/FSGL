@@ -22,6 +22,7 @@ OGLNewAgeRendererElements::OGLNewAgeRendererElements(shared_ptr<FSGLMesh> mesh) 
 
         glBufferData(GL_ARRAY_BUFFER, verticesBufferSize, mesh->glVertices, GL_STATIC_DRAW);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBufferSize, mesh->glIndices, GL_STATIC_DRAW);
+
 }
 
 void OGLNewAgeRendererElements::bind() {
@@ -33,7 +34,9 @@ void OGLNewAgeRendererElements::bind() {
 }
 
 OGLNewAgeRendererElements::~OGLNewAgeRendererElements() {
+
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &indexBuffer);
+
 }

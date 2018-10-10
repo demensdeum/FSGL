@@ -90,7 +90,21 @@ OGLNewAgeRenderer::~OGLNewAgeRenderer() {
 
 }
 
+void OGLNewAgeRenderer::cleanObjectCache(shared_ptr<FSGLObject> object) {
+
+	auto model = object->model;
+	auto size = model->meshes.size();
+	for (unsigned int meshIndex = 0; meshIndex < size; meshIndex++) {
+		auto mesh = model->meshes[meshIndex];
+		mapMeshElementsMap.erase(mesh);
+	}
+	mapObjectElementsMap.erase(object);
+
+}
+
 void OGLNewAgeRenderer::removeObject(shared_ptr<FSGLObject> object) {
+
+	cleanObjectCache(object);
 
 	if (object->flag2D) {
 	    for (size_t i = 0; i < objects2D.size(); i++) {
@@ -242,6 +256,19 @@ SDL_Window* OGLNewAgeRenderer::initialize() {
 }
 
 void OGLNewAgeRenderer::addObject(shared_ptr<FSGLObject> object) {
+
+	auto model = object->model;
+	auto size = model->meshes.size();
+
+	for (unsigned int meshIndex = 0; meshIndex < size; meshIndex++) {
+
+		auto mesh = model->meshes[meshIndex];
+		auto elements = make_shared<OGLNewAgeRendererElements>(mesh);	
+
+		mapMeshElementsMap[mesh] = elements;
+		mapObjectElementsMap[object] = elements;
+	}
+
 	if (object->flag2D) {
 		objects2D.push_back(object);
 	}
@@ -327,7 +354,7 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         GLint vertexSlot = glGetAttribLocation(shader_program, "vertex");
 
-	 auto elements = OGLNewAgeRendererElements(mesh);
+	auto elements = mapMeshElementsMap[mesh];
 
         glVertexAttribPointer(vertexSlot, 3, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, 0);
         glEnableVertexAttribArray(vertexSlot);
@@ -386,7 +413,8 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
         viewMatrixUniform = glGetUniformLocation(shader_program, "viewMatrix");
         glUniformMatrix4fv(viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
-        glDrawElements(GL_TRIANGLES, elements.indicesCount, GL_UNSIGNED_SHORT, 0);
+	  elements->bind();
+        glDrawElements(GL_TRIANGLES, elements->indicesCount, GL_UNSIGNED_SHORT, 0);
 
         glDeleteTextures(1, &textureBinding);
 
