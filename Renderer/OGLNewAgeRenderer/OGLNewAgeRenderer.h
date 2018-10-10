@@ -61,8 +61,6 @@ private:
 
     SDL_GLContext context;
     GLuint shader_program;
-    
-    GLuint vao, vbo, indexBuffer;
    
     SDL_Window *window;
     

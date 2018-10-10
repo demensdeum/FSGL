@@ -11,8 +11,7 @@ static const GLchar* vertexShaderSource =
 
         "varying vec2 uvOut;\n"
         "void main() {\n"
-        "   vec4 vertexPosition = vertex;\n"
-        "   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertexPosition;\n"
+        "   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertex;\n"
         "   uvOut = uvIn;\n"
         "}\n";
 

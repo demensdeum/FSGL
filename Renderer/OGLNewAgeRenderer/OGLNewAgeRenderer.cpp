@@ -26,6 +26,7 @@
 #include <set>
 
 #include <json/json.hpp>
+#include "OGLNewAgeRendererElements.h"
 
 #include "shaders.h"
 
@@ -323,26 +324,10 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
         auto mesh = model->meshes[meshIndex];
 
         mesh->updateGlAnimationTransformation();
-        
-        auto vertices = mesh->glVertices;
-        auto indices = mesh->glIndices;
-
-        GLsizeiptr verticesBufferSize = mesh->glVerticesBufferSize;
-        GLsizeiptr indicesBufferSize = mesh->glIndicesBufferSize;
-        GLsizei    indicesCount = mesh->glIndicesCount;
 
         GLint vertexSlot = glGetAttribLocation(shader_program, "vertex");
 
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);        
-        
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, verticesBufferSize, vertices, GL_STATIC_DRAW);
-
-        glGenBuffers(1, &indexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBufferSize, indices, GL_STATIC_DRAW);
+	 auto elements = OGLNewAgeRendererElements(mesh);
 
         glVertexAttribPointer(vertexSlot, 3, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, 0);
         glEnableVertexAttribArray(vertexSlot);
@@ -401,13 +386,9 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
         viewMatrixUniform = glGetUniformLocation(shader_program, "viewMatrix");
         glUniformMatrix4fv(viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
-        glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_SHORT, 0);
+        glDrawElements(GL_TRIANGLES, elements.indicesCount, GL_UNSIGNED_SHORT, 0);
 
         glDeleteTextures(1, &textureBinding);
-
-	  glDeleteVertexArrays(1, &vao);
-        glDeleteBuffers(1, &vbo);
-        glDeleteBuffers(1, &indexBuffer);
 
         object->postRenderUpdate();
     }
