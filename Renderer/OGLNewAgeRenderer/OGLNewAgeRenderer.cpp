@@ -386,23 +386,7 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         GLint uvSlot = glGetAttribLocation(shader_program, "uvIn");
         glVertexAttribPointer(uvSlot, 2, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 3));
-        glEnableVertexAttribArray(uvSlot);
-        
-        GLint animationTransformRowOneSlot = glGetAttribLocation(shader_program, "animationTransformRowOne");
-        glVertexAttribPointer(animationTransformRowOneSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 5));
-        glEnableVertexAttribArray(animationTransformRowOneSlot);
-        
-        GLint animationTransformRowTwoSlot = glGetAttribLocation(shader_program, "animationTransformRowTwo");
-        glVertexAttribPointer(animationTransformRowTwoSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 9));
-        glEnableVertexAttribArray(animationTransformRowTwoSlot);
-        
-        GLint animationTransformRowThreeSlot = glGetAttribLocation(shader_program, "animationTransformRowThree");
-        glVertexAttribPointer(animationTransformRowThreeSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 13));
-        glEnableVertexAttribArray(animationTransformRowThreeSlot);        
-        
-        GLint animationTransformRowFourSlot = glGetAttribLocation(shader_program, "animationTransformRowFour");
-        glVertexAttribPointer(animationTransformRowFourSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 17));
-        glEnableVertexAttribArray(animationTransformRowFourSlot);        
+        glEnableVertexAttribArray(uvSlot);   
         
         GLint modelMatrixUniform;
         GLint viewMatrixUniform;
@@ -421,7 +405,7 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         glDeleteTextures(1, &textureBinding);
 
-	   glDeleteVertexArrays(1, &vao);
+	  glDeleteVertexArrays(1, &vao);
         glDeleteBuffers(1, &vbo);
         glDeleteBuffers(1, &indexBuffer);
 

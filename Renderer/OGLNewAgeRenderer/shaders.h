@@ -9,15 +9,9 @@ static const GLchar* vertexShaderSource =
         "attribute vec4 vertex;\n"
         "attribute vec2 uvIn;\n"
 
-        "attribute vec4 animationTransformRowOne;\n"
-        "attribute vec4 animationTransformRowTwo;\n"
-        "attribute vec4 animationTransformRowThree;\n"
-        "attribute vec4 animationTransformRowFour;\n"
-
         "varying vec2 uvOut;\n"
         "void main() {\n"
-        "   mat4 animationTransform = mat4(animationTransformRowOne, animationTransformRowTwo,animationTransformRowThree, animationTransformRowFour);\n"
-        "   vec4 vertexPosition = vertex * animationTransform;\n"
+        "   vec4 vertexPosition = vertex;\n"
         "   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertexPosition;\n"
         "   uvOut = uvIn;\n"
         "}\n";
