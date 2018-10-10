@@ -18,11 +18,15 @@ public:
 	GLuint vao, vbo, indexBuffer;
 	GLsizei    indicesCount = 0;
 	GLsizeiptr verticesBufferSize, indicesBufferSize;
+	GLuint textureBinding = 0;
 
-	void bind();
+	void performPreRender();
 
 private:
 	shared_ptr<FSGLMesh> mesh;
+
+	void bind();
+	void fillTexture();
 
 };
 

@@ -250,7 +250,7 @@ SDL_Window* OGLNewAgeRenderer::initialize() {
     glm::mat4 projectionMatrix = glm::perspective(45.0f, float(float(OGLNewAgeRendererScreenWidth) / float(OGLNewAgeRendererScreenHeight)), 0.001f, 200.0f);
     projectionMatrixUniform = glGetUniformLocation(shader_program, "projectionMatrix");
     glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));    
- 
+
 	return window;
 
 }
@@ -377,17 +377,14 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         }
 
-        auto palleteMode = GL_RGB;
+        //auto palleteMode = GL_RGB;
 
-        GLuint textureBinding;
+ /*       GLuint textureBinding;
         glGenTextures(1, &textureBinding);
-        glBindTexture(GL_TEXTURE_2D, textureBinding);
+        glBindTexture(GL_TEXTURE_2D, textureBinding);*/
 
-	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // oldschool vibe
-	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
-	  glGenerateMipmap(GL_TEXTURE_2D);
+/*        glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
+	  glGenerateMipmap(GL_TEXTURE_2D);*/
         glActiveTexture(GL_TEXTURE0);
 
         GLint textureSlot = glGetUniformLocation(shader_program, "texture");
@@ -413,10 +410,9 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
         viewMatrixUniform = glGetUniformLocation(shader_program, "viewMatrix");
         glUniformMatrix4fv(viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
-	  elements->bind();
-        glDrawElements(GL_TRIANGLES, elements->indicesCount, GL_UNSIGNED_SHORT, 0);
+	  elements->performPreRender();
 
-        glDeleteTextures(1, &textureBinding);
+        glDrawElements(GL_TRIANGLES, elements->indicesCount, GL_UNSIGNED_SHORT, 0);
 
         object->postRenderUpdate();
     }

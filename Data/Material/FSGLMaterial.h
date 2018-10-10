@@ -32,6 +32,8 @@ public:
     
     SDL_Surface *surface = nullptr;
     
+	bool needsUpdate = false;
+
 private:
 
 };
