@@ -159,7 +159,7 @@ std::istringstream f(serializedData->c_str());
 
                 // swap bgr -> rgb
 
-                for (auto i = 0; i < surfaceLength; i += 3) {
+                /*for (auto i = 0; i < surfaceLength; i += 3) {
 
                     auto pixels = (Uint8 *) surface->pixels;
 
@@ -171,9 +171,14 @@ std::istringstream f(serializedData->c_str());
                     pixels[i + 1] = greenComponent;
                     pixels[i + 2] = blueComponent;
 
-                }
+                }*/
 
-                convertedMaterial->surface = surface;
+			SDL_PixelFormat *pixelFormat = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA32);
+			SDL_Surface *resultSurface = SDL_ConvertSurface(surface, pixelFormat, 0);
+			SDL_FreeSurface(surface);
+			SDL_FreeFormat(pixelFormat);
+
+                convertedMaterial->surface = resultSurface;
 
 		mesh->material = convertedMaterial;
 

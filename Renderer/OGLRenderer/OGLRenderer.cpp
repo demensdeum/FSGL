@@ -184,7 +184,7 @@ SDL_Window* OGLRenderer::initialize() {
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow(
-            "Death Mask - 0.1 Alpha",
+            "Death Mask - 0.2 Alpha",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             OGLRendererScreenWidth,
