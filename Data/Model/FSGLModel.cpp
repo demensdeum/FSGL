@@ -18,6 +18,8 @@
 #include <sstream>
 #include <regex>
 
+#include <SDL2/SDL_image.h>
+
 #include "../ResourcesLoader/FSGLResourceLoader.h"
 
 using namespace std;
@@ -146,7 +148,7 @@ std::istringstream f(serializedData->c_str());
 
                 auto convertedMaterial = make_shared<FSGLMaterial>(texturePath);
 
-                auto surface = SDL_LoadBMP(convertedMaterial->texturePath->c_str());
+                auto surface = IMG_Load(convertedMaterial->texturePath->c_str());
 
                 if (surface == nullptr) {
 
