@@ -16,8 +16,8 @@ shared_ptr<FSGLCamera> FSGLCore::camera() {
 	return renderer->camera;
 }
 
-SDL_Window* FSGLCore::initialize() {
-	return renderer->initialize();
+SDL_Window* FSGLCore::initialize(shared_ptr<FSEGTIOGenericSystemParams> params) {
+	return renderer->initialize(params);
 };
     
 void FSGLCore::addObject(shared_ptr<FSGLObject> object) {

@@ -15,6 +15,7 @@
 
 #include <FSGL/Data/Model/FSGLModel.h>
 #include <FSGL/Data/Camera/FSGLCamera.h>
+#include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOGenericSystemParams.h>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -153,19 +154,31 @@ static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLe
 
 #endif
 
-SDL_Window* OGLNewAgeRenderer::initialize() {
+SDL_Window* OGLNewAgeRenderer::initialize(shared_ptr<FSEGTIOGenericSystemParams> params) {
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,16);
     
     SDL_Init(SDL_INIT_VIDEO);
 
+	if (params.get() == nullptr) {
+		throw logic_error("Can't initialize renderer - params is null");
+	}
+
+	if (params->title.get() == nullptr) {
+		throw logic_error("Can't initialize renderer - title is null in params");
+	}
+
+	auto title = params->title->c_str();
+	auto width = params->width;
+	auto height = params->height;
+
     window = SDL_CreateWindow(
-            "Death Mask - 0.2 Alpha",
+            title,
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
-            OGLNewAgeRendererScreenWidth,
-            OGLNewAgeRendererScreenHeight,
+            width,
+            height,
             SDL_WINDOW_OPENGL
             );
 

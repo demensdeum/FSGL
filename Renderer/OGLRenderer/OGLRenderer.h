@@ -41,7 +41,7 @@ public:
 	OGLRenderer() : Renderer() { };
 	virtual ~OGLRenderer();
 
-    SDL_Window* initialize();
+    SDL_Window* initialize(shared_ptr<FSEGTIOGenericSystemParams> params = nullptr);
     
 	//Create, Remove
     void addObject(shared_ptr<FSGLObject> object);

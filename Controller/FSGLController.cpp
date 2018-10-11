@@ -14,7 +14,7 @@
 #include "FSGLController.h"
 
 #include <iostream>
-#include "../Data/ResourcesLoader/FSGLResourceLoader.h"
+#include <FSGL/Data/ResourcesLoader/FSGLResourceLoader.h>
 
 FSGLController::FSGLController() {
     
@@ -25,9 +25,9 @@ FSGLController::FSGLController() {
 FSGLController::FSGLController(const FSGLController& ) {
 }
 
-SDL_Window* FSGLController::initialize() {
+SDL_Window* FSGLController::initialize(shared_ptr<FSEGTIOGenericSystemParams> params) {
     
-    return core->initialize();
+    return core->initialize(params);
 }
 
 void FSGLController::addObject(shared_ptr<FSGLObject> object) {

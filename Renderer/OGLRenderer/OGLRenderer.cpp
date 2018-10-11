@@ -176,7 +176,7 @@ static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLe
 
 #endif
 
-SDL_Window* OGLRenderer::initialize() {
+SDL_Window* OGLRenderer::initialize(shared_ptr<FSEGTIOGenericSystemParams> params) {
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,16);

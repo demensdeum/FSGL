@@ -14,14 +14,11 @@
 #ifndef FSEOGLCONTROLLER_H
 #define FSEOGLCONTROLLER_H
 
-#include "../Data/Model/FSGLModel.h"
-#include "../Data/Camera/FSGLCamera.h"
-
-#include "../Core/FSGLCore.h"
-
+#include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOGenericSystemParams.h>
+#include <FSGL/Data/Model/FSGLModel.h>
+#include <FSGL/Data/Camera/FSGLCamera.h>
+#include <FSGL/Core/FSGLCore.h>
 #include <memory>
-
-#include "../Data/Camera/FSGLCamera.h"
 
 using namespace std;
 
@@ -32,7 +29,7 @@ public:
     FSGLController(const FSGLController& orig);
     virtual ~FSGLController();
     
-    SDL_Window* initialize();
+    SDL_Window* initialize(shared_ptr<FSEGTIOGenericSystemParams> params = nullptr);
     
     void addObject(shared_ptr<FSGLObject> object);
 

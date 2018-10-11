@@ -6,6 +6,7 @@
 using namespace std;
 class FSGLObject;
 class FSGLCamera;
+class FSEGTIOGenericSystemParams;
 
 struct SDL_Window;
 
@@ -16,7 +17,7 @@ class Renderer {
 public:
 	Renderer();
 	virtual ~Renderer();
-	virtual SDL_Window* initialize() = 0;
+	virtual SDL_Window* initialize(shared_ptr<FSEGTIOGenericSystemParams> params = nullptr) = 0;
 
 	virtual void addObject(shared_ptr<FSGLObject> object) = 0;
 	virtual void removeObject(shared_ptr<FSGLObject> object) = 0;
