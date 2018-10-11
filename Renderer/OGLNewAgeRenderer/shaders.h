@@ -26,12 +26,12 @@ static const GLchar* fragmentShaderSource =
 	  "uniform float brightness;\n"
         "void main() {\n"
 	 "vec4 color = texture2D(texture, uvOut);\n"
-	 "if (color.r == 0.0 && color.g == 0.0 && color.b == 1.0) {\n"
-	 "	discard;"
-	 "}\n"
 	 "color.r = brightness * color.r;\n"
 	 "color.g = brightness * color.g;\n"
 	 "color.b = brightness * color.b;\n"
+	 "if (color.a < 0.5) {\n"
+	 "	discard;\n"
+	 "}\n"
         "   gl_FragColor = color;"
         "}\n";
 

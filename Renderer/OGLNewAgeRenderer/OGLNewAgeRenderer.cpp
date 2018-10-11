@@ -213,7 +213,7 @@ SDL_Window* OGLNewAgeRenderer::initialize() {
     SDL_GL_MakeCurrent(window, context);
 
 	glEnable(GL_MULTISAMPLE);
-    
+
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
