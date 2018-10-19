@@ -19,7 +19,6 @@
 #include <regex>
 
 #include <SDL2/SDL_image.h>
-
 #include "../ResourcesLoader/FSGLResourceLoader.h"
 
 using namespace std;
@@ -69,7 +68,8 @@ shared_ptr<string> FSGLModel::serializeIntoString() {
     return stringContainer;
 }
 
-shared_ptr<FSGLSerializable> FSGLModel::deserializeFromString(shared_ptr<string> serializedData) {
+shared_ptr<FSGLSerializable> FSGLModel::deserializeFromString(shared_ptr<string> serializedData, 
+																	 shared_ptr<MaterialLibrary> materialLibrary) {
 
     auto model = make_shared<FSGLModel>();
     
@@ -145,46 +145,31 @@ std::istringstream f(serializedData->c_str());
 		}
 
 		auto texturePath = make_shared<string>(m[1].str());
+ 		auto convertedMaterial = materialLibrary->materialForPath(texturePath);
 
-                auto convertedMaterial = make_shared<FSGLMaterial>(texturePath);
+		if (convertedMaterial.get() == nullptr) {
+            
+			convertedMaterial = make_shared<FSGLMaterial>(texturePath);
+ 			auto surface = IMG_Load(convertedMaterial->texturePath->c_str());
 
-                auto surface = IMG_Load(convertedMaterial->texturePath->c_str());
-
-                if (surface == nullptr) {
-
-                    cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
+ 			if (surface == nullptr) {
+				cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
 				throw runtime_error("FSGLModelLoaderAssimp: cannot load texture");
-
-                }
-
-                auto surfaceLength = surface->w * surface->h * 3;
-
-                // swap bgr -> rgb
-
-                /*for (auto i = 0; i < surfaceLength; i += 3) {
-
-                    auto pixels = (Uint8 *) surface->pixels;
-
-                    auto blueComponent = pixels[i];
-                    auto greenComponent = pixels[i + 1];
-                    auto redComponent = pixels[i + 2];
-
-                    pixels[i] = redComponent;
-                    pixels[i + 1] = greenComponent;
-                    pixels[i + 2] = blueComponent;
-
-                }*/
+			}
 
 			SDL_PixelFormat *pixelFormat = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA32);
 			SDL_Surface *resultSurface = SDL_ConvertSurface(surface, pixelFormat, 0);
 			SDL_FreeSurface(surface);
 			SDL_FreeFormat(pixelFormat);
 
-                convertedMaterial->surface = resultSurface;
+			convertedMaterial->surface = resultSurface;
+
+			materialLibrary->setMaterialForPath(convertedMaterial, texturePath);
+		}
 
 		mesh->material = convertedMaterial;
 
-            mesh->updateGlData();
+		mesh->updateGlData();
 	}
 
     }

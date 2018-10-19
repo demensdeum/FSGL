@@ -15,6 +15,7 @@
 #define FSGLRESOURCELOADER_H
 
 #include "../Resource/FSGLResource.h"
+#include <FlameSteelEngineGameToolkit/Controllers/MaterialLibrary.h>
 
 #include <string>
 #include <memory>
@@ -31,8 +32,8 @@ public:
     FSGLResourceLoader(const FSGLResourceLoader& orig);
     virtual ~FSGLResourceLoader();
     
-    static shared_ptr<FSGLResource> loadResource(shared_ptr<string> resourcePath);
-    static shared_ptr<FSGLModel> deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel);
+    static shared_ptr<FSGLResource> loadResource(shared_ptr<string> resourcePath, shared_ptr<MaterialLibrary> materialLibrary);
+    static shared_ptr<FSGLModel> deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel, shared_ptr<MaterialLibrary> materialLibrary);
     
 private:
 

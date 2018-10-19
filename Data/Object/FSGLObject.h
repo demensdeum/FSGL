@@ -47,7 +47,7 @@ public:
 	virtual glm::mat4 matrix();
     
 	virtual shared_ptr<string> serializeIntoString();
-	virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData);
+	virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData, shared_ptr<MaterialLibrary> materialLibrary);
 
 	virtual shared_ptr<FSGLSerializable> deserializeFromFile(shared_ptr<string> path);
     

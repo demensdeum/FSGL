@@ -25,15 +25,15 @@ FSGLResourceLoader::FSGLResourceLoader() {
 FSGLResourceLoader::FSGLResourceLoader(const FSGLResourceLoader& ) {
 }
 
-shared_ptr<FSGLModel> FSGLResourceLoader::deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel) {
+shared_ptr<FSGLModel> FSGLResourceLoader::deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel, shared_ptr<MaterialLibrary> materialLibrary) {
 
-	auto model = make_shared<FSGLModel>()->deserializeFromString(serializedModel->serializedModel);
+	auto model = make_shared<FSGLModel>()->deserializeFromString(serializedModel->serializedModel, materialLibrary);
 
 	return static_pointer_cast<FSGLModel>(model);
 
 }
 
-shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> resourcePath) {
+shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> resourcePath, shared_ptr<MaterialLibrary> materialLibrary) {
     
     cout << "FSGLResourceLoader: " << resourcePath->c_str() << endl;
     
@@ -41,7 +41,7 @@ shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> res
     
     if (extension->compare("fsglmodel") == 0) {
 
-	return FSGLModelLoaderFSGL::loadModel(resourcePath);
+	return FSGLModelLoaderFSGL::loadModel(resourcePath, materialLibrary);
 
     }
     else {

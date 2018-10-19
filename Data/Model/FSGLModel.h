@@ -22,6 +22,7 @@
 #include "../Serializable/FSGLSerializable.h"
 #include "../Animation/FSGLAnimation.h"
 #include "../Node/FSGLNode.h"
+#include <FlameSteelEngineGameToolkit/Controllers/MaterialLibrary.h>
 
 #if MSVC
 
@@ -48,7 +49,7 @@ public:
     shared_ptr<FSGLNode> rootNode;
     
     virtual shared_ptr<string> serializeIntoString();
-    virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData);     
+    virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData, shared_ptr<MaterialLibrary> materialLibrary);
     
     void applyAnimation(shared_ptr<string> animationName, double animationOffset);
     void incrementAnimation();

@@ -71,7 +71,7 @@ shared_ptr<string> FSGLObject::serializeIntoString() {
     return stringContainer;
 }
 
-shared_ptr<FSGLSerializable> FSGLObject::deserializeFromString(shared_ptr<string> serializedData) {
+shared_ptr<FSGLSerializable> FSGLObject::deserializeFromString(shared_ptr<string> serializedData, shared_ptr<MaterialLibrary> materialLibrary) {
 
     auto outputObject = make_shared<FSGLObject>();
 
@@ -96,7 +96,7 @@ shared_ptr<FSGLSerializable> FSGLObject::deserializeFromString(shared_ptr<string
 
             case FSGLObjectModelSerializationIndex:
             {
-                auto deserializedModel = FSGLModel().deserializeFromString(lineContainer);
+                auto deserializedModel = FSGLModel().deserializeFromString(lineContainer, materialLibrary);
                 outputObject->model = static_pointer_cast<FSGLModel>(deserializedModel);
             }
                 break;

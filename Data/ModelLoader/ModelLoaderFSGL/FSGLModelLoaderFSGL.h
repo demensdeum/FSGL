@@ -12,7 +12,7 @@ using namespace std;
 class FSGLModelLoaderFSGL: public FSGLModelLoader {
 
 public:
-static shared_ptr<FSGLModel> loadModel(shared_ptr<string> modelPath);
+static shared_ptr<FSGLModel> loadModel(shared_ptr<string> modelPath, shared_ptr<MaterialLibrary> materialLibrary);
 
 };
 
