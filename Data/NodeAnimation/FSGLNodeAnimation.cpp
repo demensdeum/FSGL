@@ -32,13 +32,13 @@ FSGLNodeAnimation::~FSGLNodeAnimation() {
 
 shared_ptr<FSGLMatrix> FSGLNodeAnimation::transformationMatrix() {
 
-	cout << "FSGLNodeAnimation "<< name->c_str() << " transformationMatrix for node, animationOffset " << currentOffset << endl;
+	//cout << "FSGLNodeAnimation "<< name->c_str() << " transformationMatrix for node, animationOffset " << currentOffset << endl;
 
 	auto animationOffset = currentOffset;
 
     if (animationOffset >= positions.size()) {
         
-	cout << "FSGLNodeAnimation::transformationMatrix() animationOffset " << animationOffset << " >= positions.size " << positions.size() << " - return nullptr" << endl;
+	//cout << "FSGLNodeAnimation::transformationMatrix() animationOffset " << animationOffset << " >= positions.size " << positions.size() << " - return nullptr" << endl;
 
         return shared_ptr<FSGLMatrix>();
         

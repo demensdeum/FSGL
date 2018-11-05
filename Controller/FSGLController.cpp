@@ -32,7 +32,7 @@ SDL_Window* FSGLController::initialize(shared_ptr<FSEGTIOGenericSystemParams> pa
 
 void FSGLController::addObject(shared_ptr<FSGLObject> object) {
     
-	cout << "core add object" << endl;
+	//cout << "core add object" << endl;
 
     core->addObject(object);
 }

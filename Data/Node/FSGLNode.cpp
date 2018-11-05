@@ -20,11 +20,11 @@ FSGLNode::FSGLNode() {
 
 void FSGLNode::applyTransformationMatrix(shared_ptr<FSGLMatrix> transformationMatrix) {
     
-    cout << "FSGLNode::applyTransformationMatrix - for node: " << name->c_str() << endl;
+    //cout << "FSGLNode::applyTransformationMatrix - for node: " << name->c_str() << endl;
 
 	if (transformationMatrix.get() == nullptr) {
 
-		cout << "FSGLNode::applyTransformationMatrix - transformationMatrix is nullptr" << endl;
+		//cout << "FSGLNode::applyTransformationMatrix - transformationMatrix is nullptr" << endl;
 
 		return;
 
@@ -38,7 +38,7 @@ void FSGLNode::applyTransformationMatrix(shared_ptr<FSGLMatrix> transformationMa
 
     for (auto child : childs) {
         
-	cout << "applyAnimationTransformations for child node: " << child->name->c_str() << endl;
+	//cout << "applyAnimationTransformations for child node: " << child->name->c_str() << endl;
 
         child->applyTransformationMatrix(transformationMatrix);
         

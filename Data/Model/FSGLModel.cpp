@@ -73,7 +73,7 @@ shared_ptr<FSGLSerializable> FSGLModel::deserializeFromString(shared_ptr<string>
 
     auto model = make_shared<FSGLModel>();
     
-    cout << "Read serialized data:" << endl;    
+    //cout << "Read serialized data:" << endl;    
 
 std::istringstream f(serializedData->c_str());
 
@@ -83,14 +83,14 @@ std::istringstream f(serializedData->c_str());
 
     while (std::getline(f, line)) {
        
- //std::cout << line << std::endl;
+ //std:://cout << line << std::endl;
 
 	if (line.find("Mesh") != std::string::npos) {
 
 		mesh = make_shared<FSGLMesh>();
 		model->meshes.push_back(mesh);
 
-		cout << "Mesh was added" << endl;
+		//cout << "Mesh was added" << endl;
 
 	}
 	else if (line.find("Vertex") != std::string::npos) {
@@ -107,7 +107,7 @@ std::istringstream f(serializedData->c_str());
 
 		if (mesh.get() == nullptr) {
 
-			cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
+			//cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
 			exit(1);
 		}
 
@@ -123,7 +123,7 @@ std::istringstream f(serializedData->c_str());
 
 		if (mesh.get() == nullptr) {
 
-			cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
+			//cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
 			exit(1);
 		}
 
@@ -140,7 +140,7 @@ std::istringstream f(serializedData->c_str());
 
 		if (mesh.get() == nullptr) {
 
-			cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
+			//cout << "FSGLModel deserialize from string error - mesh is null - incorrect model string format" << endl;
 			exit(1);
 		}
 
@@ -153,7 +153,7 @@ std::istringstream f(serializedData->c_str());
  			auto surface = IMG_Load(convertedMaterial->texturePath->c_str());
 
  			if (surface == nullptr) {
-				cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
+				//cout << "FSGLModelLoaderAssimp: cannot load texture: " << convertedMaterial->texturePath->c_str() << endl;
 				throw runtime_error("FSGLModelLoaderAssimp: cannot load texture");
 			}
 
@@ -201,7 +201,7 @@ shared_ptr<FSGLBone> FSGLModel::findBone(shared_ptr<string> boneName) {
         
     }
     
-	cout << "Bone not found " << boneName->c_str() << endl;
+	//cout << "Bone not found " << boneName->c_str() << endl;
 
     return shared_ptr<FSGLBone>();
     

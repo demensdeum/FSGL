@@ -55,7 +55,7 @@ GLint OGLNewAgeRenderer::common_get_shader_program(const char *vertex_shader_sou
     glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(vertex_shader, 512, NULL, infoLog);
-        cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << endl << infoLog << endl;
+        //cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << endl << infoLog << endl;
 	throw logic_error("Can't compile shader program");
     }
 
@@ -65,7 +65,7 @@ GLint OGLNewAgeRenderer::common_get_shader_program(const char *vertex_shader_sou
     glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(fragment_shader, 512, NULL, infoLog);
-        cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << endl << infoLog << endl;
+        //cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << endl << infoLog << endl;
 	throw logic_error("Can't compile shader program");
     }
 
@@ -77,7 +77,7 @@ GLint OGLNewAgeRenderer::common_get_shader_program(const char *vertex_shader_sou
     glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(shader_program, 512, NULL, infoLog);
-        cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED" << endl << infoLog << endl;
+        //cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED" << endl << infoLog << endl;
 	throw logic_error("Can't link shader program");
     }
 
@@ -148,7 +148,7 @@ static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLe
 { 
 	if (type != GL_DEBUG_TYPE_OTHER)
 	{
-		cout << "OpenGL: "<< message << endl;
+		//cout << "OpenGL: "<< message << endl;
 	}
 }
 
@@ -303,7 +303,7 @@ void OGLNewAgeRenderer::render() {
 
 	if (object.get() == nullptr) {
 
-		cout << "OGLNewAgeRenderer cannot render empty object" << endl;
+		//cout << "OGLNewAgeRenderer cannot render empty object" << endl;
 
 		exit(1);
 
@@ -321,7 +321,7 @@ void OGLNewAgeRenderer::render() {
     for (unsigned int i = 0; i < objects2D.size(); i++) {
         auto object = objects2D[i];
 	if (object.get() == nullptr) {
-		cout << "OGLNewAgeRenderer cannot render empty object" << endl;
+		//cout << "OGLNewAgeRenderer cannot render empty object" << endl;
 		exit(1);
 	}
    
@@ -384,7 +384,7 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         if (surface == NULL) {
 
-            cout << "OGLNewAgeRenderer: cannot load texture " << material->texturePath->c_str() << endl;
+            //cout << "OGLNewAgeRenderer: cannot load texture " << material->texturePath->c_str() << endl;
 	
 		throw logic_error("OGLNewAgeRenderer: cannot load texture");
 

@@ -15,8 +15,8 @@ FSGLVertex::FSGLVertex(float x, float y, float z, float u, float v) {
 
 #if VERTEX_DEBUGGING
 
-	cout << "x = " << x << "; y = " << y << "; z = " << z << ";" << endl;  
-	cout << "u = " << u << "; v = " << v << ";" << endl;  
+	//cout << "x = " << x << "; y = " << y << "; z = " << z << ";" << endl;  
+	//cout << "u = " << u << "; v = " << v << ";" << endl;  
 
 #endif
 
@@ -35,7 +35,7 @@ void FSGLVertex::updateTransformMatrix() {
 
 void FSGLVertex::resetTransformationMatrix() {
 
-	cout << "resetTransformationMatrix()" << endl;
+	//cout << "resetTransformationMatrix()" << endl;
 
 	transformMatrix = make_shared<FSGLMatrix>();
 
@@ -45,17 +45,17 @@ void FSGLVertex::applyTransformationMatrixWithWeight(shared_ptr<FSGLMatrix> tran
 
 	if (transformMatrix.get() == nullptr) {
 
-		cout << "FSGLVertex::applyTransformationMatrixWithWeight - vertex transform matrix not installed/resetted - exit" << endl;
+		//cout << "FSGLVertex::applyTransformationMatrixWithWeight - vertex transform matrix not installed/resetted - exit" << endl;
 		
 		exit(55);
 
 	}
 
-	cout << "FSGLVertex::applyTransformationMatrixWithWeight" << " weight: " << weight << ";" << endl;
+	//cout << "FSGLVertex::applyTransformationMatrixWithWeight" << " weight: " << weight << ";" << endl;
 
 	if (transformationMatrix.get() == nullptr)
 	{
-		cout << "FSGLVertex::applyTransformationMatrixWithWeight - transformationMatrix = nullptr" << endl;
+		//cout << "FSGLVertex::applyTransformationMatrixWithWeight - transformationMatrix = nullptr" << endl;
 
 		exit(3);
 	}

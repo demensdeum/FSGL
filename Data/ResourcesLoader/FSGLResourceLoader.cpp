@@ -35,7 +35,7 @@ shared_ptr<FSGLModel> FSGLResourceLoader::deserializeModel(shared_ptr<FSEGTSeria
 
 shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> resourcePath, shared_ptr<MaterialLibrary> materialLibrary) {
     
-    cout << "FSGLResourceLoader: " << resourcePath->c_str() << endl;
+    //cout << "FSGLResourceLoader: " << resourcePath->c_str() << endl;
     
     shared_ptr<string> extension = FSGLUtils::filePathExtension(resourcePath);
     
@@ -46,8 +46,8 @@ shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> res
     }
     else {
         
-        cout << "FSGLResourceLoader: Could not load file: " << resourcePath->c_str() << endl;
-        cout << "FSGLResourceLoader: Unknown file format: " << extension->c_str() << endl;
+        //cout << "FSGLResourceLoader: Could not load file: " << resourcePath->c_str() << endl;
+        //cout << "FSGLResourceLoader: Unknown file format: " << extension->c_str() << endl;
         
     }
     

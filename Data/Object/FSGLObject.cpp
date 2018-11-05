@@ -77,7 +77,7 @@ shared_ptr<FSGLSerializable> FSGLObject::deserializeFromString(shared_ptr<string
 
     string serializedDataString = *serializedData.get();
 
-    cout << serializedDataString.c_str() << endl;
+    //cout << serializedDataString.c_str() << endl;
 
     std::istringstream input;
     input.str(serializedDataString.c_str());
@@ -90,7 +90,7 @@ shared_ptr<FSGLSerializable> FSGLObject::deserializeFromString(shared_ptr<string
         auto rawLine = line.c_str();
         auto lineContainer = make_shared<string>(rawLine);
 
-        cout << "FSGLObject: line " << rawLine << endl;
+        //cout << "FSGLObject: line " << rawLine << endl;
 
         switch (i) {
 
@@ -142,7 +142,7 @@ void FSGLObject::resetTransformationMatrix() {
 
 void FSGLObject::updateAnimationTransformations() {
 
-	cout << "FSGLObject - Updating animation transformations" << endl;
+	//cout << "FSGLObject - Updating animation transformations" << endl;
 
     auto currentAnimation = model->currentAnimation;
     
@@ -160,15 +160,15 @@ void FSGLObject::updateAnimationTransformations() {
         
 	if (transformationMatrix.get() == nullptr) {
 
-		cout << "FSGLObject::updateAnimationTransformations - transformationMatrix - nullptr" << endl;
+		//cout << "FSGLObject::updateAnimationTransformations - transformationMatrix - nullptr" << endl;
 
 	}
 
-	cout << "FSGLObject - There is animation node and transformationMatrix" << endl;
+	//cout << "FSGLObject - There is animation node and transformationMatrix" << endl;
 
         if (node.get() != nullptr) {
         
-	cout << "FSGLObject - Applying transformation matrix to node" << endl;
+	//cout << "FSGLObject - Applying transformation matrix to node" << endl;
 
             node->applyTransformationMatrix(transformationMatrix);
        
@@ -182,7 +182,7 @@ void FSGLObject::applyAnimation(shared_ptr<string> animationName, double animati
 
 	resetTransformationMatrix();
 
-    cout << "FSGLObject playing animation: " << animationName->c_str() << endl;
+    //cout << "FSGLObject playing animation: " << animationName->c_str() << endl;
 
     model->applyAnimation(animationName, animationOffset);
 
@@ -196,6 +196,6 @@ void FSGLObject::postRenderUpdate() {
 
 FSGLObject::~FSGLObject() {
 
-    cout << "FSGLObject destructed" << endl;
+    //cout << "FSGLObject destructed" << endl;
 
 }

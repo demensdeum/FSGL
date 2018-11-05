@@ -75,7 +75,7 @@ shared_ptr<FSGLSerializable> FSGLVector::deserializeFromString(shared_ptr<string
 
         serializedDataStringStream >> value;
 
-        cout << value << endl;
+        //cout << value << endl;
 
         switch (i) {
 

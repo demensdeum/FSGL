@@ -68,7 +68,7 @@ void FSGLMesh::updateGlAnimationTransformation() {
 
 	if (vertexObject.get() == nullptr)
 	{
-		cout << "vertexObject is null" << endl;
+		//cout << "vertexObject is null" << endl;
 
 		exit(1);
 
@@ -77,7 +77,7 @@ void FSGLMesh::updateGlAnimationTransformation() {
 	if (vertexObject->transformMatrix.get() == nullptr)
 	{
 
-	cout << "Vertex transform matrix is null, do not apply animation" << endl;
+	//cout << "Vertex transform matrix is null, do not apply animation" << endl;
 
         glVertices[i + 5] = 1;
         glVertices[i + 6] = 0;
@@ -106,7 +106,7 @@ else
 	auto transformMatrix = vertexObject->transformMatrix;
 	auto transformationMatrix = transformMatrix->matrix;
 
-	//cout << "Vertex transform animation applied" << endl;
+	////cout << "Vertex transform animation applied" << endl;
 
         glVertices[i + 5] = transformationMatrix[0][0];
         glVertices[i + 6] = transformationMatrix[1][0];
@@ -161,7 +161,7 @@ void FSGLMesh::updateGlData() {
 
     glVertices = new GLfloat[verticesObjects.size() * glVertexCount];
 
-	cout << "verticesObjects.size() " << verticesObjects.size() << endl;
+	//cout << "verticesObjects.size() " << verticesObjects.size() << endl;
 
     for (unsigned int i = 0; i < verticesObjects.size() * glVertexCount; i += glVertexCount) {
 

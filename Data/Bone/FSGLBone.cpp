@@ -25,13 +25,13 @@ FSGLBone::FSGLBone(const FSGLBone& ) {
 
 void FSGLBone::applyTransformationMatrix(shared_ptr<FSGLMatrix> transformationMatrix) {
     
-    cout << "applyAnimationTransformations for bone: " << name->c_str() << endl;
+    //cout << "applyAnimationTransformations for bone: " << name->c_str() << endl;
     
-	cout << "bone child vertexWeights count: " << vertexWeights.size() << endl;
+	//cout << "bone child vertexWeights count: " << vertexWeights.size() << endl;
     
 	if (transformationMatrix.get() == nullptr)
 {
-	cout << "FSGLBone::applyTransformationMatrix transformationMatrix - nullptr" << endl;
+	//cout << "FSGLBone::applyTransformationMatrix transformationMatrix - nullptr" << endl;
 
 	exit(2);
 }
