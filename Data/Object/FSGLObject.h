@@ -42,7 +42,7 @@ public:
 	shared_ptr<FSGLVector> positionVector;   
   
 	float brightness = 1.0;
-	bool flag2D = false;
+	int layer = 0;
 
 	virtual glm::mat4 matrix();
     

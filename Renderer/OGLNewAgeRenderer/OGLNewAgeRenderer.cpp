@@ -107,37 +107,35 @@ void OGLNewAgeRenderer::removeObject(shared_ptr<FSGLObject> object) {
 
 	cleanObjectCache(object);
 
-	if (object->flag2D) {
-	    for (size_t i = 0; i < objects2D.size(); i++) {
+	auto layer = object->layer;
 	
-		if (object.get() == objects2D[i].get()) {
+	if (layerToObjectsMap.find(layer) == layerToObjectsMap.end()) {
+		throw runtime_error("Can't remove object, because layer does not exist in layer map");
+	}
 
-			removeObjectAtIndex(object, i);
+	auto objects = layerToObjectsMap[layer];
 
-			return;
-		}
+	for (size_t i = 0; i < objects.size(); i++) {
+
+		auto iteratedObject = objects[i];
+
+		if (object->id == iteratedObject->id) {
+
+			objects.erase(objects.begin() + i);
+
+			layerToObjectsMap[layer] = objects;
+
+			break;
+
 		}
 	}
-	else {
-	    for (size_t i = 0; i < objects.size(); i++) {
-	
-		if (object.get() == objects[i].get()) {
 
-			removeObjectAtIndex(object, i);
+	if (objects.size() < 1) {
 
-			return;
-		}
-		}
-	}
-}
+		layerToObjectsMap.erase(layer);
 
-void OGLNewAgeRenderer::removeObjectAtIndex(shared_ptr<FSGLObject> object, int index) {
+		cout << "Layer removed" << endl;
 
-	if (object->flag2D) {
-		objects2D.erase(objects2D.begin() + index);
-	}
-	else {
-		objects.erase(objects.begin() + index);
 	}
 
 }
@@ -148,7 +146,7 @@ static void  FSGL_openGLDebugCallback(GLenum source, GLenum type, GLuint id, GLe
 { 
 	if (type != GL_DEBUG_TYPE_OTHER)
 	{
-		//cout << "OpenGL: "<< message << endl;
+		cout << "OpenGL: "<< message << endl;
 	}
 }
 
@@ -282,52 +280,42 @@ void OGLNewAgeRenderer::addObject(shared_ptr<FSGLObject> object) {
 		mapObjectElementsMap[object] = elements;
 	}
 
-	if (object->flag2D) {
-		objects2D.push_back(object);
+	auto layer = object->layer;
+
+	if (layerToObjectsMap.find(layer) == layerToObjectsMap.end()) {
+		auto newLayer = vector<shared_ptr<FSGLObject>>();
+		layerToObjectsMap[layer] =  newLayer;
 	}
-	else {
-		objects.push_back(object);
-	}
+
+	auto objectsLayer = layerToObjectsMap[layer];
+	objectsLayer.push_back(object);
+
+	layerToObjectsMap[layer] = objectsLayer;
+
 }
 
 void OGLNewAgeRenderer::render() {
 
-    // clear
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearDepthf(1.0f);
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearDepthf(1.0f);
+	for (auto pair : layerToObjectsMap) {
 
-    for (unsigned int i = 0; i < objects.size(); i++) {
+		auto objects = pair.second;
 
-        auto object = objects[i];
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glClearDepthf(1.0f);
 
-	if (object.get() == nullptr) {
+		for (auto object : objects) {
+			if (object.get() == nullptr) {
 
-		//cout << "OGLNewAgeRenderer cannot render empty object" << endl;
+				throw runtime_error("can't render null object");
 
-		exit(1);
+			}
 
+				renderObject(object);
+		}
 	}
-
-	renderObject(object);
-
-    }
-
-	// 2D On Screen Rendering
-
-    glClear(GL_DEPTH_BUFFER_BIT);
-    glClearDepthf(1.0f);
-
-    for (unsigned int i = 0; i < objects2D.size(); i++) {
-        auto object = objects2D[i];
-	if (object.get() == nullptr) {
-		//cout << "OGLNewAgeRenderer cannot render empty object" << endl;
-		exit(1);
-	}
-   
-	renderObject(object);            
-        
-    }
 
     SDL_GL_SwapWindow(window);
 }
@@ -338,21 +326,13 @@ void OGLNewAgeRenderer::stop() {
 
 shared_ptr<FSGLObject> OGLNewAgeRenderer::getObjectWithID(string id) {
     
-    for (size_t i = 0; i < objects.size(); i++) {
-        auto object = objects[i];
-        if (object->id == id) {
-            return object;
-        }
-    }
+	if (idToObjectMap.find(id) == idToObjectMap.end()) {
 
-	for (size_t i = 0; i < objects2D.size(); i++) {
-		auto object = objects2D[i];
-		if (object->id == id) {
-			return object;
-		}
+		throw runtime_error("Id not found in id to object map, it was added? it was removed?");
+
 	}
-    
-    return shared_ptr<FSGLObject>();
+
+    return idToObjectMap[id];
 }
 
 void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
@@ -390,14 +370,6 @@ void OGLNewAgeRenderer::renderObject(shared_ptr<FSGLObject> object) {
 
         }
 
-        //auto palleteMode = GL_RGB;
-
- /*       GLuint textureBinding;
-        glGenTextures(1, &textureBinding);
-        glBindTexture(GL_TEXTURE_2D, textureBinding);*/
-
-/*        glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
-	  glGenerateMipmap(GL_TEXTURE_2D);*/
         glActiveTexture(GL_TEXTURE0);
 
         GLint textureSlot = glGetUniformLocation(shader_program, "texture");

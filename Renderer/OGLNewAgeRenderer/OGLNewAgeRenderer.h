@@ -55,10 +55,7 @@ public:
     void stop();
     
 private:
-
     void cleanObjectCache(shared_ptr<FSGLObject> object);
-
-    void removeObjectAtIndex(shared_ptr<FSGLObject> object, int index);
     void renderObject(shared_ptr<FSGLObject> object);
     
     GLint common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source);
@@ -68,8 +65,8 @@ private:
    
     SDL_Window *window;
     
-    vector<shared_ptr<FSGLObject>> objects2D;
-    vector<shared_ptr<FSGLObject>> objects;
+	map<string, shared_ptr<FSGLObject>> idToObjectMap;
+	map<int, vector<shared_ptr<FSGLObject>>> layerToObjectsMap;
 
 	map<shared_ptr<FSGLMesh>, shared_ptr<OGLNewAgeRendererElements>> mapMeshElementsMap;
 	map<shared_ptr<FSGLObject>, shared_ptr<OGLNewAgeRendererElements>> mapObjectElementsMap;
